@@ -1,4 +1,4 @@
-import AllProducts from "@/components/home/allProducts";
+import AllProducts from "@/components/home/AllProducts";
 import TodayDecrese from "@/components/home/TodayDecrese";
 import TodayIncrese from "@/components/home/TodayIncrese";
 import Image from "next/image";
