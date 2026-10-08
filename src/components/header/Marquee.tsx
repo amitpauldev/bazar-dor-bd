@@ -13,7 +13,7 @@ const Marquee = async () => {
 				{data.map((item) => (
 					<div
 						key={item.id}
-						className="py-2 px-4 border-l-2 border-gray-100 shadow bg-white"
+						className="py-2 px-4 border-x border-gray-100 bg-white"
 					>
 						<div className="flex items-center gap-1 text-sm">
 							<span>{item.image}</span>
