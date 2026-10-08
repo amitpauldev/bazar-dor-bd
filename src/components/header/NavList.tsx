@@ -1,10 +1,10 @@
+import getApiBaseURL from "@/baseurl/base-url";
 import Link from "next/link";
 import React from "react";
 
 const NavList = async () => {
-	const res = await fetch(
-		"https://api.api-store.workers.dev/api/bazardor/categories",
-	);
+	const baseURL = await getApiBaseURL();
+	const res = await fetch(`${baseURL}/categories`);
 	const data: { id: string; nameBn: string; slug: string; icon: string }[] =
 		await res.json();
 

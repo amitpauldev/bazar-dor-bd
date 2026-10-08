@@ -1,10 +1,10 @@
+import getApiBaseURL from "@/baseurl/base-url";
 import { ProductType } from "@/types/type";
 import MarqueeText from "react-marquee-text";
 
 const Marquee = async () => {
-	const res = await fetch(
-		"https://api.api-store.workers.dev/api/bazardor/products",
-	);
+	const baseURL = await getApiBaseURL();
+	const res = await fetch(`${baseURL}/products`);
 	const data: ProductType[] = await res.json();
 
 	return (
