@@ -3,18 +3,46 @@
 import Link from "next/link";
 import {} from "lucide-react";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const SignInPage = () => {
-	const [inValid, setInValid] = useState(false);
+	const [isRequesting, setIsRequesting] = useState(false);
+	const [isError, setIsError] = useState("");
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		const formData = new FormData(e.target as HTMLFormElement);
-		const formValues = Object.fromEntries(formData.entries());
-		console.log(formValues);
+		const formValues = Object.fromEntries(formData.entries()) as {
+			email: string;
+			password: string;
+		};
 
-		// Continue with your signup logic here
+		// SignIn logic
+		await authClient.signIn.email(
+			{
+				email: formValues.email,
+				password: formValues.password,
+			},
+			{
+				onRequest: (ctx) => {
+					setIsRequesting(true);
+				},
+				onSuccess: (ctx) => {
+					setIsRequesting(false);
+					redirect("/profile");
+				},
+				onError: (ctx) => {
+					setIsError(ctx.error.message);
+					setIsRequesting(false);
+
+					setTimeout(() => {
+						setIsError("");
+					}, 7000);
+				},
+			},
+		);
 	};
 
 	return (
@@ -66,7 +94,7 @@ const SignInPage = () => {
 								className="h-9 w-full rounded-md border border-gray-200 bg-transparent px-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
 							/>
 						</div>
-						{inValid && (
+						{isError && (
 							<p className="mt-1 text-xs text-red-500">
 								ইমেইল অথবা পাসওয়ার্ড সঠিক নয়।
 							</p>
@@ -74,10 +102,11 @@ const SignInPage = () => {
 
 						{/* Submit */}
 						<button
+							disabled={isRequesting}
 							type="submit"
 							className="h-9 w-full rounded-md border border-emerald-500 bg-transparent text-sm font-semibold text-emerald-700 transition hover:bg-emerald-600 hover:text-white cursor-pointer"
 						>
-							অ্যাকাউন্টে ঢুকুন
+							অ্যাকাউন্টে {isRequesting ? "ঢুকচ্ছে..." : "ঢুকুন"}
 						</button>
 					</form>
 

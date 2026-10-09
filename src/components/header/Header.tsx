@@ -11,7 +11,7 @@ const HeaderSection = () => {
 				<Logo />
 
 				{/* Profile menu  */}
-				<div className="flex items-center gap-2 text-sm">
+				<div className="flex items-center text-sm">
 					<Link
 						href="/sign-in"
 						className="px-3 py-1 rounded-xl hover:underline"

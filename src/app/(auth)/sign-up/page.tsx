@@ -1,15 +1,19 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import {} from "lucide-react";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 const SignUpPage = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [isError, setIsError] = useState("");
+	const [isRequesting, setIsRequesting] = useState(false);
+
 	const passwordsMatch = password === confirmPassword;
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!passwordsMatch) {
 			alert("পাসওয়ার্ড মিলছে না।");
@@ -21,10 +25,41 @@ const SignUpPage = () => {
 		}
 
 		const formData = new FormData(e.target as HTMLFormElement);
-		const formValues = Object.fromEntries(formData.entries());
-		console.log(formValues);
+		const formValues = Object.fromEntries(formData.entries()) as {
+			email: string;
+			name: string;
+			password: string;
+		};
 
-		// Continue with your signup logic here
+		// signup logic
+		await authClient.signUp.email(
+			{
+				email: formValues.email,
+				password: formValues.password,
+				name: formValues.name,
+			},
+			{
+				onRequest: (ctx) => {
+					setIsRequesting(true);
+					setPassword("");
+					setConfirmPassword("");
+				},
+				onSuccess: (ctx) => {
+					setIsRequesting(false);
+					redirect("/profile");
+				},
+				onError: (ctx) => {
+					setIsError(ctx.error.message);
+					setIsRequesting(false);
+					setPassword("");
+					setConfirmPassword("");
+
+					setTimeout(() => {
+						setIsError("");
+					}, 7000);
+				},
+			},
+		);
 	};
 
 	return (
@@ -125,13 +160,15 @@ const SignUpPage = () => {
 						{confirmPassword && !passwordsMatch && (
 							<p className="mt-1 text-xs text-red-500">পাসওয়ার্ড মিলছে না।</p>
 						)}
+						{isError && <p className="mt-1 text-xs text-red-500">{isError}</p>}
 
 						{/* Submit */}
 						<button
+							disabled={isRequesting}
 							type="submit"
 							className="h-9 w-full rounded-md border border-emerald-500 bg-transparent text-sm font-semibold text-emerald-700 transition hover:bg-emerald-600 hover:text-white cursor-pointer"
 						>
-							অ্যাকাউন্ট তৈরি করুন
+							অ্যাকাউন্ট তৈরি {isRequesting ? "হচ্ছে..." : "করুন"}
 						</button>
 					</form>
 
