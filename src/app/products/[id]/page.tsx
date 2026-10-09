@@ -38,7 +38,7 @@ const ProductDetailPage = async ({
 			<div className="my-5 flex items-center justify-between gap-2 rounded-xl border border-gray-200 bg-white-primary p-4">
 				<div className="flex gap-4">
 					<span className="text-5xl bg-green-50 border border-gray-200 py-4 px-3 rounded-xl">
-						{product.categoryIcon}
+						{product.image}
 					</span>
 
 					<div className="flex flex-col">
@@ -66,7 +66,7 @@ const ProductDetailPage = async ({
 				</div>
 
 				<div className="flex flex-col items-center py-2 px-4 rounded-xl bg-green-50 border border-gray-200">
-					<span className="text-sm text-gray-600">আজকের দাম</span>
+					<span className="text-sm text-gray-600 text-nowrap">আজকের দাম</span>
 					<span className="text-3xl font-bold">
 						{product.today.toLocaleString("bn-BD")}
 					</span>
@@ -83,7 +83,7 @@ const ProductDetailPage = async ({
 										: product.unit}
 					</span>
 					<span
-						className={`${product.change.dir === "up" ? "text-red-600" : product.change.dir === "down" ? "text-green-600" : "text-gray-600"} py-1 px-2 rounded-xl text-sm font-semibold`}
+						className={`${product.change.dir === "up" ? "text-red-600" : product.change.dir === "down" ? "text-green-600" : "text-gray-600"} py-1 px-2 rounded-xl text-sm font-semibold text-nowrap`}
 					>
 						<span className="text-[12px] mr-1">
 							{product.change.dir === "up"
@@ -165,62 +165,64 @@ const ProductDetailPage = async ({
 						বাজারভিত্তিক আজকের দাম
 					</h2>
 					<div className="bg-white-primary rounded-xl border border-gray-200 overflow-hidden">
-						<table className="w-full border-collapse text-sm">
-							<thead>
-								<tr className="bg-gray-50 text-gray-900 font-extrabold text-lg">
-									<th className="border border-gray-200 px-3 py-3 text-left">
-										বাজার
-									</th>
-									<th className="border border-gray-200 px-3 py-3 text-left">
-										বিভাগ
-									</th>
-									<th className="border border-gray-200 px-3 py-3 text-right">
-										সর্বনিম্ন
-									</th>
-									<th className="border border-gray-200 px-3 py-3 text-right">
-										সর্বোচ্চ
-									</th>
-									<th className="border border-gray-200 px-3 py-3 text-right">
-										গড়
-									</th>
-								</tr>
-							</thead>
+						<div className="overflow-x-auto">
+							<table className="w-full border-collapse text-sm">
+								<thead>
+									<tr className="bg-gray-50 text-gray-900 font-extrabold text-lg">
+										<th className="border border-gray-200 px-3 py-3 text-left">
+											বাজার
+										</th>
+										<th className="border border-gray-200 px-3 py-3 text-left">
+											বিভাগ
+										</th>
+										<th className="border border-gray-200 px-3 py-3 text-right">
+											সর্বনিম্ন
+										</th>
+										<th className="border border-gray-200 px-3 py-3 text-right">
+											সর্বোচ্চ
+										</th>
+										<th className="border border-gray-200 px-3 py-3 text-right">
+											গড়
+										</th>
+									</tr>
+								</thead>
 
-							<tbody>
-								{product.markets
-									.sort((a, b) => a.min - b.min)
-									.map((market, index) => {
-										const average = (market.min + market.max) / 2;
+								<tbody>
+									{product.markets
+										.sort((a, b) => a.min - b.min)
+										.map((market, index) => {
+											const average = (market.min + market.max) / 2;
 
-										return (
-											<tr
-												key={`${market.market}-${index}`}
-												className="transition-colors hover:bg-blue-50/50"
-											>
-												<td className="border border-gray-200 px-3 py-3 font-medium text-gray-800">
-													{market.market}
-												</td>
-												<td className="border border-gray-200 px-3 py-3 text-gray-700">
-													{market.division}
-												</td>
-												<td className="border border-gray-200 px-3 py-3 text-right text-gray-700">
-													{market.min.toLocaleString("bn-BD")} টাকা
-												</td>
-												<td className="border border-gray-200 px-3 py-3 text-right text-gray-700">
-													{market.max.toLocaleString("bn-BD")} টাকা
-												</td>
-												<td className="border border-gray-200 px-3 py-3 text-right font-bold text-gray-900">
-													{average.toLocaleString("bn-BD", {
-														minimumFractionDigits: 0,
-														maximumFractionDigits: 2,
-													})}{" "}
-													টাকা
-												</td>
-											</tr>
-										);
-									})}
-							</tbody>
-						</table>
+											return (
+												<tr
+													key={`${market.market}-${index}`}
+													className="transition-colors hover:bg-blue-50/50"
+												>
+													<td className="border border-gray-200 px-3 py-3 font-medium text-gray-800">
+														{market.market}
+													</td>
+													<td className="border border-gray-200 px-3 py-3 text-gray-700">
+														{market.division}
+													</td>
+													<td className="border border-gray-200 px-3 py-3 text-right text-gray-700">
+														{market.min.toLocaleString("bn-BD")} টাকা
+													</td>
+													<td className="border border-gray-200 px-3 py-3 text-right text-gray-700">
+														{market.max.toLocaleString("bn-BD")} টাকা
+													</td>
+													<td className="border border-gray-200 px-3 py-3 text-right font-bold text-gray-900">
+														{average.toLocaleString("bn-BD", {
+															minimumFractionDigits: 0,
+															maximumFractionDigits: 2,
+														})}{" "}
+														টাকা
+													</td>
+												</tr>
+											);
+										})}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
