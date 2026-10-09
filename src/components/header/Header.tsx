@@ -1,6 +1,7 @@
 import NavList from "./NavList";
 import Marquee from "./Marquee";
 import Logo from "../ui/Logo";
+import Link from "next/link";
 
 const HeaderSection = () => {
 	return (
@@ -10,9 +11,19 @@ const HeaderSection = () => {
 				<Logo />
 
 				{/* Profile menu  */}
-				<div className="flex flex-col gap-1.5">
-					<div>A</div>
-					<div>B</div>
+				<div className="flex items-center gap-2 text-sm">
+					<Link
+						href="/sign-in"
+						className="px-3 py-1 rounded-xl hover:underline"
+					>
+						সাইন ইন
+					</Link>
+					<Link
+						href="/sign-up"
+						className="px-3 py-1 bg-primary rounded-xl text-white hover:bg-primary/90 transition-all duration-300"
+					>
+						সাইন আপ
+					</Link>
 				</div>
 			</div>
 

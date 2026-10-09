@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+	--background: #f0f6f0;
 	--primary: #05893e;
 	--secondary: #047f39;
 
@@ -12,6 +13,7 @@
 	--font-inter: var(--font-inter);
 	--font-bengali: var(--font-noto-serif-bengali);
 
+	--color-background: var(--background);
 	--color-primary: var(--primary);
 	--color-secondary: var(--secondary);
 	--color-white-primary: var(--white-primary);
@@ -20,7 +22,7 @@
 
 @layer base {
 	body {
-		@apply bg-green-50;
+		@apply bg-background;
 	}
 }
 
