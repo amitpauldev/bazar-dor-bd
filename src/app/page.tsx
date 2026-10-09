@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 export default function Home() {
 	return (
-		<main className="wrapper">
+		<main className="wrapper pb-20">
 			<div className="py-2 px-4 mt-5 rounded-xl border border-gray-200 bg-white-primary flex flex-col md:flex-row justify-between items-center md:items-start">
 				<div className="md:w-1/2">
 					<span className="text-[12px] font-semibold text-primary bg-green-100 rounded-xl px-2 py-1">

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: ProductType }) => {
 	return (
-		<Link href={`/product/${product.slug}`}>
+		<Link href={`/products/${product.id}`}>
 			<div className="rounded-xl border border-gray-200 bg-white-primary p-3">
 				<div className="flex gap-2">
 					<div className="p-2 rounded-xl bg-green-50 border border-gray-200">

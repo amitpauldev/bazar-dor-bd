@@ -32,7 +32,7 @@ const SingleCategoryPage = async ({
 	const categoryDetails: ProductType[] = await productsRes.json();
 
 	return (
-		<main className="wrapper min-h-[60vh]">
+		<main className="wrapper pt-5 pb-15">
 			<div className="my-5 flex items-center gap-2 rounded-xl border border-gray-200 bg-white-primary p-4">
 				<span className="text-5xl">{category.icon}</span>
 
