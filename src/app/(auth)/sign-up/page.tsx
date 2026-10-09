@@ -15,10 +15,6 @@ const SignUpPage = () => {
 			alert("পাসওয়ার্ড মিলছে না।");
 			return;
 		}
-		if (password !== confirmPassword) {
-			alert("পাসওয়ার্ড মিলছে না।");
-			return;
-		}
 		if (password.length < 8) {
 			alert("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।");
 			return;
