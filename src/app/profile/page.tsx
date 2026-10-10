@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { UserRound, LogOut, LoaderCircle, ArrowUpRight } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function ProfilePage() {
 	const { data: session, isPending } = authClient.useSession();
-
 	const user = session?.user;
+
+	const router = useRouter();
 
 	// Sign out
 	const handleSignOut = async () => {
@@ -20,7 +21,8 @@ export default function ProfilePage() {
 		await authClient.signOut({
 			fetchOptions: {
 				onSuccess: () => {
-					redirect("/");
+					router.replace("/");
+					router.refresh();
 				},
 				onError: (ctx) => {
 					alert(ctx.error.message || "সাইন আউট করা যায়নি।");
@@ -119,7 +121,7 @@ export default function ProfilePage() {
 						<button
 							type="button"
 							onClick={handleSignOut}
-							className="flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 bg-red-50 px-5 py-3 font-semibold text-red-600 transition hover:bg-red-100"
+							className="cursor-pointer flex w-full items-center justify-center gap-2 rounded-lg border border-red-200 bg-red-50 px-5 py-3 font-semibold text-red-600 transition hover:bg-red-100"
 						>
 							<LogOut size={19} />
 							সাইন আউট করুন

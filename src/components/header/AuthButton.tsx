@@ -1,13 +1,22 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { ArrowUpRight, UserRound } from "lucide-react";
+import { ArrowUpRight, LoaderCircle, UserRound } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const AuthButton = () => {
-	const { data: session } = authClient.useSession();
+	const { data: session, isPending } = authClient.useSession();
 	const user = session?.user;
+
+	if (isPending) {
+		return (
+			<div className="pr-10">
+				<LoaderCircle className="h-8 w-8 animate-spin text-green-600" />
+			</div>
+		);
+	}
+	console.log(user);
 
 	return (
 		<div>
