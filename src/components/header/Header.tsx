@@ -2,6 +2,7 @@ import NavList from "./NavList";
 import Marquee from "./Marquee";
 import Logo from "../ui/Logo";
 import Link from "next/link";
+import AuthButton from "./AuthButton";
 
 const HeaderSection = () => {
 	return (
@@ -11,20 +12,7 @@ const HeaderSection = () => {
 				<Logo />
 
 				{/* Profile menu  */}
-				<div className="flex items-center text-sm">
-					<Link
-						href="/sign-in"
-						className="px-3 py-1 rounded-xl hover:underline"
-					>
-						সাইন ইন
-					</Link>
-					<Link
-						href="/sign-up"
-						className="px-3 py-1 bg-primary rounded-xl text-white hover:bg-primary/90 transition-all duration-300"
-					>
-						সাইন আপ
-					</Link>
-				</div>
+				<AuthButton />
 			</div>
 
 			<NavList />
