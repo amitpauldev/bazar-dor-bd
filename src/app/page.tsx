@@ -2,7 +2,6 @@ import AllProducts from "@/components/home/AllProducts";
 import TodayDecrese from "@/components/home/TodayDecrese";
 import TodayIncrese from "@/components/home/TodayIncrese";
 import Image from "next/image";
-import { Suspense } from "react";
 
 export default function Home() {
 	return (
@@ -41,11 +40,9 @@ export default function Home() {
 				</div>
 			</div>
 
-			<Suspense fallback={<div>Loading...</div>}>
-				<TodayIncrese />
-				<TodayDecrese />
-				<AllProducts />
-			</Suspense>
+			<TodayIncrese />
+			<TodayDecrese />
+			<AllProducts />
 		</main>
 	);
 }

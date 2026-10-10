@@ -4,9 +4,7 @@ import getApiBaseURL from "@/baseurl/base-url";
 
 const AllProducts = async () => {
 	const baseURL = await getApiBaseURL();
-	const res = await fetch(`${baseURL}/products`, {
-		cache: "no-store",
-	});
+	const res = await fetch(`${baseURL}/products`);
 	const data: ProductType[] = await res.json();
 
 	return (

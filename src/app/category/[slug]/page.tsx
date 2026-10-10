@@ -12,12 +12,8 @@ const SingleCategoryPage = async ({
 	const baseURL = await getApiBaseURL();
 
 	const [categoryRes, productsRes] = await Promise.all([
-		fetch(`${baseURL}/categories/${slug}`, {
-			cache: "no-store",
-		}),
-		fetch(`${baseURL}/products?category=${slug}`, {
-			cache: "no-store",
-		}),
+		fetch(`${baseURL}/categories/${slug}`),
+		fetch(`${baseURL}/products?category=${slug}`),
 	]);
 
 	if (!categoryRes.ok) {

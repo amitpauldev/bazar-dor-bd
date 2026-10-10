@@ -3,7 +3,6 @@ import { SingleProductType } from "@/types/singleProductType";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import React from "react";
 
 const ProductDetailPage = async ({
 	params,
@@ -13,9 +12,7 @@ const ProductDetailPage = async ({
 	const { id } = await params;
 
 	const baseURL = await getApiBaseURL();
-	const res = await fetch(`${baseURL}/products/${id}`, {
-		cache: "no-store",
-	});
+	const res = await fetch(`${baseURL}/products/${id}`);
 	const product: SingleProductType = await res.json();
 
 	if (!res.ok) {

@@ -9,7 +9,7 @@ const Marquee = async () => {
 
 	return (
 		<div className="bg-green-50 border-y-2 border-gray-100 shadow">
-			<MarqueeText>
+			<MarqueeText direction="right">
 				{data.map((item) => (
 					<div
 						key={item.id}

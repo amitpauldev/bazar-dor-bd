@@ -4,9 +4,7 @@ import getApiBaseURL from "@/baseurl/base-url";
 
 const TodayDecrese = async () => {
 	const baseURL = await getApiBaseURL();
-	const res = await fetch(`${baseURL}/products`, {
-		cache: "no-store",
-	});
+	const res = await fetch(`${baseURL}/products`);
 	const data: ProductType[] = await res.json();
 
 	const todayIncrese = data

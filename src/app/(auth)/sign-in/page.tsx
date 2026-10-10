@@ -4,11 +4,12 @@ import Link from "next/link";
 import {} from "lucide-react";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
 	const [isRequesting, setIsRequesting] = useState(false);
 	const [isError, setIsError] = useState("");
+	const router = useRouter();
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -31,7 +32,8 @@ const SignInPage = () => {
 				},
 				onSuccess: (ctx) => {
 					setIsRequesting(false);
-					redirect("/profile");
+					router.replace("/profile");
+					router.refresh();
 				},
 				onError: (ctx) => {
 					setIsError(ctx.error.message);

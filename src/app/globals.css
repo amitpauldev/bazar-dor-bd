@@ -29,6 +29,7 @@
 body {
 	color: var(--foreground);
 	font-family: var(--font-bengali);
+	scroll-behavior: smooth;
 }
 
 @layer components {

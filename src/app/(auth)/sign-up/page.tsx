@@ -2,7 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const SignUpPage = () => {
@@ -10,6 +10,8 @@ const SignUpPage = () => {
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [isError, setIsError] = useState("");
 	const [isRequesting, setIsRequesting] = useState(false);
+
+	const router = useRouter();
 
 	const passwordsMatch = password === confirmPassword;
 
@@ -46,7 +48,8 @@ const SignUpPage = () => {
 				},
 				onSuccess: (ctx) => {
 					setIsRequesting(false);
-					redirect("/profile");
+					router.replace("/profile");
+					router.refresh();
 				},
 				onError: (ctx) => {
 					setIsError(ctx.error.message);
