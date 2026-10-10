@@ -7,9 +7,7 @@ export default async function getApiBaseURL() {
 
 	for (const apiURL of apiURLs) {
 		try {
-			const res = await fetch(`${apiURL}/products`, {
-				cache: "no-store",
-			});
+			const res = await fetch(`${apiURL}/products`);
 
 			if (res.ok) {
 				return apiURL;

@@ -3,6 +3,15 @@ import { ProductType } from "@/types/type";
 import { notFound } from "next/navigation";
 import CategoryProducts from "../components/CategoryProducts";
 
+export const generateStaticParams = async () => {
+	const baseURL = await getApiBaseURL();
+	const res = await fetch(`${baseURL}/categories`);
+	const data: { id: string; nameBn: string; slug: string; icon: string }[] =
+		await res.json();
+
+	return data.map((item) => ({ slug: item.slug }));
+};
+
 const SingleCategoryPage = async ({
 	params,
 }: {
