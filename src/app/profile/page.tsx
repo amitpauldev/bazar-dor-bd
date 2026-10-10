@@ -5,6 +5,7 @@ import { UserRound, LogOut, LoaderCircle, ArrowUpRight } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
 	const { data: session, isPending } = authClient.useSession();
@@ -21,11 +22,12 @@ export default function ProfilePage() {
 		await authClient.signOut({
 			fetchOptions: {
 				onSuccess: () => {
+					toast.success("সাইন আউট করা হয়েছে।");
 					router.replace("/");
 					router.refresh();
 				},
 				onError: (ctx) => {
-					alert(ctx.error.message || "সাইন আউট করা যায়নি।");
+					toast.error("সাইন আউট করা যায়নি।");
 				},
 			},
 		});

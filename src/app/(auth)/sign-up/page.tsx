@@ -4,6 +4,7 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const SignUpPage = () => {
 	const [password, setPassword] = useState("");
@@ -17,12 +18,12 @@ const SignUpPage = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (!passwordsMatch) {
-			alert("পাসওয়ার্ড মিলছে না।");
+		if (password.length < 8) {
+			toast.error("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।");
 			return;
 		}
-		if (password.length < 8) {
-			alert("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে।");
+		if (!passwordsMatch) {
+			toast.error("পাসওয়ার্ড মিলছে না।");
 			return;
 		}
 
@@ -47,11 +48,13 @@ const SignUpPage = () => {
 					setConfirmPassword("");
 				},
 				onSuccess: (ctx) => {
+					toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে।");
 					setIsRequesting(false);
 					router.replace("/profile");
 					router.refresh();
 				},
 				onError: (ctx) => {
+					toast.error("একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
 					setIsError(ctx.error.message);
 					setIsRequesting(false);
 					setPassword("");

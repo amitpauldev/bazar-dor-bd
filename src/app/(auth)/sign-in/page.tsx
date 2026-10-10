@@ -5,6 +5,7 @@ import {} from "lucide-react";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const SignInPage = () => {
 	const [isRequesting, setIsRequesting] = useState(false);
@@ -31,11 +32,13 @@ const SignInPage = () => {
 					setIsRequesting(true);
 				},
 				onSuccess: (ctx) => {
+					toast.success("সাইন ইন করা হয়েছে।");
 					setIsRequesting(false);
-					router.replace("/profile");
+					router.replace("/");
 					router.refresh();
 				},
 				onError: (ctx) => {
+					toast.error("সাইন ইন করা যায়নি।");
 					setIsError(ctx.error.message);
 					setIsRequesting(false);
 
