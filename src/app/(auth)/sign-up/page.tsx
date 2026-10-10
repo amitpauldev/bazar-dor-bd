@@ -54,7 +54,7 @@ const SignUpPage = () => {
 					router.refresh();
 				},
 				onError: (ctx) => {
-					toast.error("একটি সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+					toast.error("একটি সমস্যা হয়েছে। আবার চেষ্টা করুন");
 					setIsError(ctx.error.message);
 					setIsRequesting(false);
 					setPassword("");
